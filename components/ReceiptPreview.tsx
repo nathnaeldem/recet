@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { ReceiptData } from '../types';
+import logoEltrade from '../assets/redesign/-logo_eltrade.png';
+import etNffLogo from '../assets/redesign/et_nff_logo.png';
 
 interface ReceiptPreviewProps {
   data: ReceiptData;
@@ -28,7 +30,7 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data, isPrint })
   const contentFontStyle: React.CSSProperties = {
     fontFamily: "'Metrophobic', 'Consolas', monospace",
     fontWeight: 400,
-    lineHeight: '1.6', // Extra line height to account for scaleY
+    lineHeight: '1.7', // Slightly increased to prevent overlap with scaleY
   };
 
   // Style for individual text lines to make them taller
@@ -51,7 +53,7 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data, isPrint })
         {/* Logo Header */}
         <div className="flex flex-col items-start mb-1" style={{ paddingLeft: '8%', marginTop: '1px', ...printAdjustStyles }}>
           <img 
-            src="/redesign/-logo_eltrade.png" 
+            src={logoEltrade} 
             alt="ELTRADE" 
             style={{ 
               width: data.printerWidth === '58mm' ? '55%' : '50%', 
@@ -63,13 +65,20 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data, isPrint })
         </div>
 
         {/* Business Details */}
-        <div className="text-center mb-3" style={{ ...contentFontStyle, fontSize: baseFontSize, lineHeight: '1.2' }}>
+        <div className="text-center mb-3" style={{ ...contentFontStyle, fontSize: data.printerWidth === '58mm' ? '11px' : '13px', lineHeight: '1.5' }}>
           <div style={tallTextStyle}>TIN:{data.tin}</div>
           <div style={tallTextStyle}>{data.ownerName}</div>
           <div style={tallTextStyle}>{data.address}</div>
           <div style={tallTextStyle}>TEL:-{data.phone}</div>
           <div style={tallTextStyle}>{data.bankInfo}</div>
-          <div style={{ ...tallTextStyle, lineHeight: '0.9' }}>{data.businessType}</div>
+          <div style={{ ...tallTextStyle, lineHeight: '1.2' }}>
+            {data.businessType === "RETAIL TRADE OF CONSTRUCTION MATERIALS" ? (
+              <>
+                <div>RETAIL TRADE OF CONSTRUCTION</div>
+                <div>MATERIALS</div>
+              </>
+            ) : data.businessType}
+          </div>
         </div>
 
         {/* FS No and Date/Time */}
@@ -110,7 +119,7 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data, isPrint })
         {/* Totals Section */}
         <div className="mb-1" style={{ ...contentFontStyle, fontSize: baseFontSize }}>
           <div className="flex justify-between" style={tallTextStyle}>
-            <span>TAXBL1</span>
+            <span>TAXBL 1</span>
             <span>*{taxableTotal.toFixed(2)}</span>
           </div>
           <div className="flex justify-between" style={tallTextStyle}>
@@ -150,7 +159,7 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data, isPrint })
         <div className="mt-4 flex flex-col items-center text-center" style={{ ...contentFontStyle, fontSize: baseFontSize }}>
           <div className="mb-1 uppercase" style={tallTextStyle}>{data.ercaLabel}</div>
           <img 
-            src="/redesign/et_nff_logo.png" 
+            src={etNffLogo} 
             alt="ET NFF" 
             style={{ 
               width: data.printerWidth === '58mm' ? '95%' : '90%', 
