@@ -39,6 +39,14 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data, isPrint })
     transformOrigin: 'top',
   };
 
+  const renderAsterisk = () => (
+    <span style={{ 
+      display: 'inline-block', 
+      transform: 'translateY(0.12em)', // Center it vertically
+      marginRight: '1px'
+    }}>*</span>
+  );
+
   return (
     <div 
       className={`bg-white text-black flex flex-col ${isPrint ? 'm-0 p-0' : 'p-2 shadow-inner'}`}
@@ -99,7 +107,7 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data, isPrint })
               </div>
               <div className="flex justify-between" style={tallTextStyle}>
                 <span className="break-all mr-2">{item.description}</span>
-                <span className="whitespace-nowrap">*{item.amount.toFixed(2)}</span>
+                <span className="whitespace-nowrap">{renderAsterisk()}{item.amount.toFixed(2)}</span>
               </div>
             </div>
           ))}
@@ -120,11 +128,11 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data, isPrint })
         <div className="mb-1" style={{ ...contentFontStyle, fontSize: baseFontSize }}>
           <div className="flex justify-between" style={tallTextStyle}>
             <span>TAXBL 1</span>
-            <span>*{taxableTotal.toFixed(2)}</span>
+            <span>{renderAsterisk()}{taxableTotal.toFixed(2)}</span>
           </div>
           <div className="flex justify-between" style={tallTextStyle}>
             <span>TAX1 {data.taxRate.toFixed(2)}%</span>
-            <span>*{taxAmount.toFixed(2)}</span>
+            <span>{renderAsterisk()}{taxAmount.toFixed(2)}</span>
           </div>
         </div>
         
@@ -143,11 +151,11 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ data, isPrint })
         <div className="mb-2" style={{ ...contentFontStyle, fontSize: baseFontSize }}>
           <div className="flex justify-between font-bold" style={{ ...tallTextStyle, fontSize: '1.3em' }}>
             <span>TOTAL :</span>
-            <span>*{grandTotal.toFixed(2)}</span>
+            <span>{renderAsterisk()}{grandTotal.toFixed(2)}</span>
           </div>
           <div className="flex justify-between" style={tallTextStyle}>
             <span>{data.paymentMethod}</span>
-            <span>*{grandTotal.toFixed(2)}</span>
+            <span>{renderAsterisk()}{grandTotal.toFixed(2)}</span>
           </div>
           <div className="flex justify-between" style={tallTextStyle}>
             <span>ITEM#</span>
