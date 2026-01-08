@@ -1,0 +1,5 @@
+{
+  "name": "Thermal Receipt Pro",
+  "description": "A professional-grade web application to generate and print small mobile thermal receipts with customizable headers, items, and tax information, specifically styled for 58mm and 80mm printers.",
+  "requestFramePermissions": []
+}
